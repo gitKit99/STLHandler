@@ -26,8 +26,8 @@ void Cylinder::createSoup()
         this->soup.push_back(this->getOnTop(*(it - 1)));
         this->soup.push_back(*it);
 
-        this->soup.push_back(*it);
         this->soup.push_back(*(it - 1));
+        this->soup.push_back(*it);
         this->soup.push_back(this->getOnTop(*(it - 1)));
 
         // top circle

@@ -14,8 +14,8 @@ class Parser
 {
 public:
     Parser();
-    int tryToParse(std::vector<std::string>, std::vector<std::unique_ptr<Command>> const&);
-    std::map<std::string, std::string> getAttrDictionary();
+    const std::map<std::string, std::string>& parse(const std::vector<std::string>&);
+    //std::map<std::string, std::string> getAttrDictionary();
 
 private:
     std::vector<std::string> userCommand;

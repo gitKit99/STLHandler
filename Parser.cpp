@@ -5,15 +5,15 @@ Parser::Parser()
 
 }
 
-int Parser::tryToParse(std::vector<std::string> userVector,
-    std::vector<std::unique_ptr<Command>> const& comVector)
+const std::map<std::string, std::string>& Parser::parse(
+        const std::vector<std::string> &userVector)
 {
     this->userCommand.clear();
     this->userCommand = userVector;
 
     clean();
     createMap();
-    return 0;
+    return this->comMap;
 }
 
 void Parser::clean()
@@ -62,7 +62,7 @@ void Parser::createMap()
     }
 }
 
-std::map<std::string, std::string> Parser::getAttrDictionary()
+/*std::map<std::string, std::string> Parser::getAttrDictionary()
 {
     return this->comMap;
-}
+}*/

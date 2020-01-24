@@ -19,12 +19,14 @@ int Application::execute(int argc, char *argv[]) {
     attrVector.erase(attrVector.begin());
 
     // trying to convert into map dictionary
-    int canParsed = parser.tryToParse(attrVector, comVector);
+    /*int canParsed = parser.tryToParse(attrVector, comVector);
     if (canParsed == 0)
         this->attrMap = parser.getAttrDictionary();
     else {
         std::cout << "ERROR " << canParsed << std::endl;
-    }
+    }*/
+
+    this->attrMap = parser.parse(attrVector);
 
     for (std::pair<std::string, std::string> pair : this->attrMap) {
         std::cout << pair.first << ": " << pair.second << std::endl;
