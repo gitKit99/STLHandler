@@ -32,14 +32,14 @@ protected:
     virtual void createSoup();
     int checkInput(const std::map<std::string, std::string>& args);
 
-    Vec PointOnPlaneProject(const Vec & point, const Vec & pointOnPlane, const Vec & planeNormal) const;
+    /*Vec PointOnPlaneProject(const Vec & point, const Vec & pointOnPlane, const Vec & planeNormal) const;
     double map(const double & var, const double & begin, const double & end,
         const double & targetBegin, const double & targetEnd) const;
 
     static double vectorLength(const Vec& v);
     static Vec vectorNormalize(Vec v);
     static double dotProduct(const Vec & v1, const Vec & v2);
-    static Vec vectorProduct(const Vec& a, const Vec& b);
+    static Vec vectorProduct(const Vec& a, const Vec& b);*/
 
     TriangleSoup mesh;
     TriangleSoup soup;

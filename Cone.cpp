@@ -42,7 +42,9 @@ void Cone::init(Vec baseCenter, Vec baseNormal, double baseRadius, double height
     this->base.radius = baseRadius;
 
     // given normal vector normalization (if necessary)
-    this->base.normal = vectorNormalize(baseNormal);
+    this->base.normal = baseNormal;
+
+    parser.vectorNormalize(this->base.normal);
 
     // find top vertex of cone
     // (normal points in opposite direction of cone's top)
@@ -78,7 +80,7 @@ void Cone::calcVertices()
     double shift = 5; // find one more point on plane using point shifting
     Vec somePlanePoint = this->base.center;
     somePlanePoint.x += shift;
-    somePlanePoint = this->PointOnPlaneProject(somePlanePoint,
+    somePlanePoint = parser.PointOnPlaneProject(somePlanePoint,
                                                this->base.center,
                                                this->base.normal);
 
@@ -88,7 +90,7 @@ void Cone::calcVertices()
         // we met the same point
         somePlanePoint = this->base.center;
         somePlanePoint.y += shift;
-        somePlanePoint = this->PointOnPlaneProject(somePlanePoint,
+        somePlanePoint = parser.PointOnPlaneProject(somePlanePoint,
                                                    this->base.center,
                                                    this->base.normal);
     }
@@ -96,9 +98,9 @@ void Cone::calcVertices()
     Vec vecOnPlane1 = Vec{somePlanePoint.x - this->base.center.x,
                           somePlanePoint.y - this->base.center.y,
                           somePlanePoint.z - this->base.center.z};
-    vecOnPlane1 = vectorNormalize(vecOnPlane1);
+    parser.vectorNormalize(vecOnPlane1);
 
-    Vec vecOnPlane2 = vectorProduct(this->base.normal, vecOnPlane1);
+    Vec vecOnPlane2 = parser.crossProduct(this->base.normal, vecOnPlane1);
 
     // push vertices of base ring
     double x, y, z;
@@ -106,7 +108,7 @@ void Cone::calcVertices()
     int slicesCount = 60;
 
     for (int i = 0; i < slicesCount; i++) {
-        double theta = this->map(i, 0, slicesCount, 0, 2 * M_PI);
+        double theta = parser.map(i, 0, slicesCount, 0, 2 * M_PI);
 
         x = this->base.center.x
                 + this->base.radius * cos(theta) * vecOnPlane1.x
@@ -124,8 +126,6 @@ void Cone::calcVertices()
 
         this->mesh.push_back(Vertex{vertex, defNormal});
     }
-
-
 }
 
 void Cone::createSoup()
@@ -149,14 +149,6 @@ void Cone::createSoup()
         this->soup.push_back(*(it - 1));
         this->soup.push_back(*it);
     }
-
-    /*this->soup.push_back(baseCenter);
-    this->soup.push_back(*(this->mesh.cbegin() + 2));
-    this->soup.push_back(*(this->mesh.cend() - 1));
-
-    this->soup.push_back(top);
-    this->soup.push_back(*(this->mesh.cend() - 1));
-    this->soup.push_back(*(this->mesh.cbegin() + 2));*/
 }
 
 int Cone::checkInput(const std::map<std::string, std::string> &input)
@@ -177,7 +169,7 @@ int Cone::checkInput(const std::map<std::string, std::string> &input)
     return 0;
 }
 
-Vec Cone::PointOnPlaneProject(const Vec & point,
+/*Vec Cone::PointOnPlaneProject(const Vec & point,
                               const Vec & pointOnPlane,
                               const Vec & planeNormal) const
 {
@@ -235,5 +227,5 @@ Vec Cone::vectorProduct(const Vec &a, const Vec &b)
     return Vec{a.y * b.z - a.z * b.y,
                a.z * b.x - a.x * b.z,
                a.x * b.y - a.y * b.x};
-}
+}*/
 

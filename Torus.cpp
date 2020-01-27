@@ -100,16 +100,17 @@ void Torus::createSoup()
     double theta;
     Vec circleCenter;
     Vec start;
+    double dist = this->bigRadius - this->smallRadius; // getting small circle center
     for (int circle = 0; circle < QUALITY; circle++)
     {
         theta = parser.map(circle, 0, QUALITY, 0, 2 * M_PI);
 
-        circleCenter.x = center.x + bigRadius * cos(theta) * v1.x
-                        + bigRadius * sin(theta) * v2.x;
-        circleCenter.y = center.y + bigRadius * cos(theta) * v1.y
-                        + bigRadius * sin(theta) * v2.y;
-        circleCenter.z = center.z + bigRadius * cos(theta) * v1.z
-                        + bigRadius * sin(theta) * v2.z;
+        circleCenter.x = center.x + dist * cos(theta) * v1.x
+                        + dist * sin(theta) * v2.x;
+        circleCenter.y = center.y + dist * cos(theta) * v1.y
+                        + dist * sin(theta) * v2.y;
+        circleCenter.z = center.z + dist * cos(theta) * v1.z
+                        + dist * sin(theta) * v2.z;
 
         // remember first circle's center for torus's closed surface
         if (circle == 0)
