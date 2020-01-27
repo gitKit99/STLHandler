@@ -13,6 +13,7 @@ SOURCES += \
         STLParser.cpp \
         Sphere.cpp \
         Split.cpp \
+        Torus.cpp \
         main.cpp
 
 HEADERS += \
@@ -24,4 +25,5 @@ HEADERS += \
     Parser.h \
     STLParser.h \
     Sphere.h \
-    Split.h
+    Split.h \
+    Torus.h

@@ -13,7 +13,7 @@ public:
 
     virtual int execute(const std::map<std::string, std::string>& args) = 0;
 protected:
-    virtual std::vector<std::string> split(std::string str); // simple string split
+    virtual std::vector<std::string> split(std::string str) const; // simple string split
 };
 
 #endif // COMMAND_H

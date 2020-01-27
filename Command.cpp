@@ -1,7 +1,7 @@
 #include "Command.h"
 
 // simple string split
-std::vector<std::string> Command::split(std::string str) {
+std::vector<std::string> Command::split(std::string str) const {
     std::vector<std::string> result;
     std::string tempStr;
     str.push_back(' ');

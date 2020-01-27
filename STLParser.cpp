@@ -1,4 +1,5 @@
 #include "STLParser.h"
+#include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <cmath>
@@ -106,12 +107,12 @@ std::vector<std::string> STLParser::split(std::string str) {
     return result;
 }
 
-double STLParser::vectorLength(const Vec &v)
+double STLParser::vectorLength(const Vec &v) const
 {
     return sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
 }
 
-void STLParser::vectorNormalize(Vec &v)
+void STLParser::vectorNormalize(Vec &v) const
 {
     double length;
     length = vectorLength(v);
@@ -124,7 +125,7 @@ void STLParser::vectorNormalize(Vec &v)
     }
 }
 
-Vec STLParser::crossProduct(Vec a, Vec  b)
+Vec STLParser::crossProduct(Vec a, Vec  b) const
 {
 
     Vec n;
@@ -138,4 +139,37 @@ Vec STLParser::crossProduct(Vec a, Vec  b)
         n = Vec{};
 
     return n;
+}
+
+double STLParser::dotProduct(const Vec &v1, const Vec &v2) const
+{
+    return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+}
+
+// convert value from one interval to another
+double STLParser::map(double var, double begin, double end, double targetBegin,
+                      double targetEnd) const
+{
+    double result = targetBegin + ((var - begin) * (targetEnd - targetBegin)) /
+        (end - begin);
+    return result;
+}
+
+Vec STLParser::PointOnPlaneProject(const Vec & point,
+                              const Vec & pointOnPlane,
+                              const Vec & planeNormal) const
+{
+    Vec v = planeNormal;
+    Vec w{pointOnPlane.x - point.x, pointOnPlane.y - point.y, pointOnPlane.z - point.z};
+    Vec intersectPoint{};
+    double denom = dotProduct(planeNormal, v);
+    if (fabs(denom) >= 0.00001)
+    {
+        double t = dotProduct(planeNormal, w) / denom;
+        intersectPoint.x = point.x + v.x * t;
+        intersectPoint.y = point.y + v.y * t;
+        intersectPoint.z = point.z + v.z * t;
+    }
+    else std::cout << "Point of intersection has not found" << std::endl;
+    return intersectPoint;
 }

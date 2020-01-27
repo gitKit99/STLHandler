@@ -7,6 +7,7 @@
 #include "Split.h"
 #include "Cone.h"
 #include "Cylinder.h"
+#include "Torus.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,6 +19,7 @@ int main(int argc, char *argv[])
 
     app.registerCommand(std::unique_ptr<Cone>(new Cone()));
     app.registerCommand(std::unique_ptr<Cone>(new Cylinder()));
+    app.registerCommand(std::unique_ptr<Torus>(new Torus()));
 
     return app.execute(argc, argv);
 }

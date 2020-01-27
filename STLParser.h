@@ -18,12 +18,18 @@ class STLParser
 public:
     TriangleSoup read(const std::string& filename);
     void write(const TriangleSoup& triangleSoup, const std::string& filename);
+
+    std::vector<std::string> split(std::string);
+    Vec crossProduct(Vec a, Vec b) const;
+    double vectorLength(const Vec&) const;
+    void vectorNormalize(Vec&) const;
+    double dotProduct(const Vec&, const Vec&) const;
+    double map(double var, double begin, double end, double targetBegin,
+               double targetEnd) const;
+    Vec PointOnPlaneProject(const Vec & point, const Vec & pointOnPlane,
+                                  const Vec & planeNormal) const;
 private:
     TriangleSoup::const_iterator it;
-    std::vector<std::string> split(std::string);
-    Vec crossProduct(Vec a, Vec b);
-    double vectorLength(const Vec&);
-    void vectorNormalize(Vec&);
 };
 
 #endif // STLPARSER_H
